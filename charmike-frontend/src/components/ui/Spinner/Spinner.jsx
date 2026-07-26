@@ -1,12 +1,22 @@
-import { Loader2 } from "lucide-react";
+export default function Spinner({
+  size = "md",
+  className = "",
+}) {
+  const sizes = {
+    sm: 16,
+    md: 24,
+    lg: 40,
+  };
 
-export default function Spinner() {
   return (
-    <div className="flex justify-center items-center p-6">
-      <Loader2
-        className="animate-spin text-[#50C878]"
-        size={32}
-      />
-    </div>
+    <div
+      className={`inline-block animate-spin rounded-full ${className}`}
+      style={{
+        width: sizes[size],
+        height: sizes[size],
+        border: "3px solid rgba(80,200,120,.20)",
+        borderTop: "3px solid #50C878",
+      }}
+    />
   );
 }

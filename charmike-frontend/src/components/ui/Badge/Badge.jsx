@@ -1,4 +1,6 @@
-const colors = {
+import { cn } from "@/utils/cn";
+
+const variants = {
   pending:
     "bg-yellow-100 text-yellow-700",
 
@@ -16,19 +18,14 @@ const colors = {
 };
 
 export default function Badge({
-  status = "pending",
+  status,
 }) {
   return (
     <span
-      className={`
-        inline-flex
-        px-3
-        py-1
-        rounded-full
-        text-xs
-        font-medium
-        ${colors[status]}
-      `}
+      className={cn(
+        "rounded-full px-3 py-1 text-xs font-semibold",
+        variants[status]
+      )}
     >
       {status}
     </span>

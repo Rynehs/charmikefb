@@ -6,9 +6,13 @@
 @theme {
   --color-primary: #50C878;
   --color-primary-dark: #2E7D32;
+  --color-primary-light: #E8F8EE;
 
   --color-background: #F5F7F9;
   --color-surface: #FFFFFF;
+  --color-surface-muted: #FAFBFC;
+
+  --color-border: #E5E7EB;
 
   --color-text: #111827;
   --color-text-muted: #6B7280;
@@ -19,8 +23,13 @@
 
   --radius-card: 1.5rem;
   --radius-button: 1rem;
+  --radius-input: .875rem;
 
   --shadow-card: 0 10px 30px rgba(15,23,42,.06);
+  --shadow-dropdown: 0 20px 40px rgba(15,23,42,.08);
+
+  --spacing-sidebar: 18rem;
+  --spacing-topbar: 4.5rem;
 }
 
 body{

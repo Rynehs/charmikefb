@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import ComponentPreview from "../pages/dev/ComponentPreview";
 import Login from "../pages/auth/Login";
 
 import AdminDashboard from "../pages/admin/Dashboard";
@@ -16,6 +16,10 @@ export default function AppRoutes() {
         <Route
           path="/"
           element={<Login />}
+        />
+        <Route
+          path="/dev/components"
+          element={<ComponentPreview />}
         />
 
         <Route
