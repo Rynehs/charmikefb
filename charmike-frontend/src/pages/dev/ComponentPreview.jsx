@@ -1,4 +1,20 @@
 import {
+  setToken,
+  getToken,
+  clearSession,
+} from "@/lib/storage";
+
+console.log("Before:", getToken());
+
+setToken("test-token-123");
+
+console.log("After:", getToken());
+
+clearSession();
+
+console.log("Cleared:", getToken());
+
+import {
   Button,
   Card,
   Badge,
