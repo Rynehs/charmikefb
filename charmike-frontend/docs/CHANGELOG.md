@@ -57,6 +57,15 @@ The format loosely follows Keep a Changelog principles.
 - Client pages
 
 ---
+## [0.2.2] - Storage Layer
+
+### Added
+
+- Centralized storage helper
+- Token management
+- User persistence
+- Session management
+- Authentication helper functions
 
 Future releases
 

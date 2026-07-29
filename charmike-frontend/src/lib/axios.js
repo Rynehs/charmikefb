@@ -1,4 +1,4 @@
-import { getToken } from "@/lib/auth";
+import { getToken } from "@/lib/storage";
 import axios from "axios";
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
