@@ -7,16 +7,25 @@ import {
   clearSession,
 } from "@/lib/storage";
 
+const endpoints = {
+  admin: "/admin/login",
+  agent: "/agent/login",
+  client: "/client/login",
+};
+
 class AuthService {
   /**
    * Login user
    */
-  async login(phone, password) {
+  async login(role, phone, password) {
     try {
-      const response = await api.post("/login", {
-        phone,
-        password,
-      });
+      const response = await api.post(
+        endpoints[role],
+        {
+          phone,
+          password,
+        }
+      );
 
       const { success, message, data } = response.data;
 

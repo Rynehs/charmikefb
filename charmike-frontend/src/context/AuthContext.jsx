@@ -1,66 +1,61 @@
 import { createContext, useContext, useEffect, useState } from "react";
+
 import authService from "@/services/auth";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
+
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
 
-    if (savedUser && token) {
-      setUser(JSON.parse(savedUser));
+    const currentUser = authService.getCurrentUser();
+
+    if (currentUser) {
+      setUser(currentUser);
     }
 
     setLoading(false);
-  }, [token]);
 
-  const login = async (role, credentials) => {
-    const response = await authService.login(role, credentials);
+  }, []);
 
-    const token = response.data.token;
-    const user = response.data.user;
+  async function login(role, phone, password) {
 
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("role", user.role);
+    const result = await authService.login(role, phone, password);
 
-    setToken(token);
-    setUser(user);
-
-    return user;
-  };
-
-  const logout = async () => {
-    try {
-      await authService.logout();
-    } catch (error) {
-      console.error(error);
+    if (result.success) {
+      setUser(result.user);
     }
 
-    localStorage.clear();
+    return result;
+  }
+
+  function logout() {
+
+    authService.logout();
 
     setUser(null);
-    setToken(null);
-  };
+  }
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        token,
         loading,
         login,
         logout,
-        authenticated: !!token,
+        isAuthenticated: !!user,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
+
 }
 
-export default AuthContext;
+export function useAuth() {
+  return useContext(AuthContext);
+}
