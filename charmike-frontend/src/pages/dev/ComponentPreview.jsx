@@ -1,5 +1,9 @@
-import RoleCard from "@/components/ui/Rolecard";
 import { useState } from "react";
+
+import RoleCard from "@/components/ui/RoleCard";
+import FormField from "@/components/ui/FormField";
+import Input from "@/components/ui/Input";
+import PasswordInput from "@/components/ui/PasswordInput";
 
 export default function ComponentPreview() {
 
@@ -7,28 +11,58 @@ export default function ComponentPreview() {
 
   return (
 
-    <div className="grid gap-6 md:grid-cols-3">
+    <div className="space-y-10 p-10">
 
-      <RoleCard
-        title="Administrator"
-        description="Manage the entire lending system."
-        selected={role === "admin"}
-        onClick={() => setRole("admin")}
-      />
+      {/* Role Cards */}
 
-      <RoleCard
-        title="Agent"
-        description="Register clients and manage loans."
-        selected={role === "agent"}
-        onClick={() => setRole("agent")}
-      />
+      <div className="grid gap-6 md:grid-cols-3">
 
-      <RoleCard
-        title="Client"
-        description="Access your account and loan information."
-        selected={role === "client"}
-        onClick={() => setRole("client")}
-      />
+        <RoleCard
+          title="Administrator"
+          description="Manage the entire lending system."
+          selected={role === "admin"}
+          onClick={() => setRole("admin")}
+        />
+
+        <RoleCard
+          title="Agent"
+          description="Register clients and manage loans."
+          selected={role === "agent"}
+          onClick={() => setRole("agent")}
+        />
+
+        <RoleCard
+          title="Client"
+          description="Access your account and loan information."
+          selected={role === "client"}
+          onClick={() => setRole("client")}
+        />
+
+      </div>
+
+      {/* Login Fields */}
+
+      <div className="max-w-md space-y-6">
+
+        <FormField
+          label="Phone Number"
+          required
+        >
+          <Input
+            placeholder="0712345678"
+          />
+        </FormField>
+
+        <FormField
+          label="Password"
+          required
+        >
+          <PasswordInput
+            placeholder="Enter password"
+          />
+        </FormField>
+
+      </div>
 
     </div>
 
