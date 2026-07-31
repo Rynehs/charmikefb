@@ -22,6 +22,7 @@ class AuthService {
       const response = await api.post(
         endpoints[role],
         {
+          role,
           phone,
           password,
         }

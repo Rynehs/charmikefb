@@ -1,30 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ComponentPreview from "../pages/dev/ComponentPreview";
-import Playground from "../pages/dev/Playground";
-import ApiTest from "../pages/dev/ApiTest";
+
+import Login from "../pages/auth/Login";
+
 import AdminDashboard from "../pages/admin/Dashboard";
 import AgentDashboard from "../pages/agent/Dashboard";
 import ClientDashboard from "../pages/client/Dashboard";
 
 import ProtectedRoute from "./ProtectedRoute";
 
-export default function DevRoutes() {
+export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
 
         <Route
-          path="/dev/components"
-          element={<ComponentPreview />}
-        />
-        <Route
-          path="/dev/api"
-          element={<ApiTest />}
-        />
-
-        <Route
-          path="/dev/playground"
-          element={<Playground />}
+          path="/"
+          element={<Login />}
         />
 
         <Route
