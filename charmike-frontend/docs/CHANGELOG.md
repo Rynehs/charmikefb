@@ -78,3 +78,39 @@ Future releases
 0.6.0 Client Dashboard
 
 1.0.0 Production Release
+
+# Changelog
+
+## Sprint 2
+
+Added
+
+Reusable UI Component Library
+
+Authentication Context
+
+Authentication Service
+
+Axios Client
+
+Protected Routing
+
+Developer API Console
+
+Login Page
+
+Role Based Authentication
+
+Automatic Dashboard Redirection
+
+Session Storage
+
+Loading States
+
+Error Handling
+
+Backend Integration
+
+Completed
+
+Sprint 2 Authentication System

@@ -1,257 +1,68 @@
-# Charmike Frontend
+# Charmike Investments Management System
 
-A modern React frontend for the Charmike Lending Management System.
+## Overview
 
-The application provides role-based dashboards for Administrators, Agents, and Clients while communicating with the Laravel backend through REST APIs.
+Charmike Investments Management System is a modern lending management platform designed to support multiple business types through configurable business logic.
 
----
+The system currently supports:
 
-# Project Status
-
-**Current Version:** v0.2.0
-
-**Current Sprint:** Sprint 2.2 – UI Foundation ✅
-
-**Next Sprint:** Sprint 2.3 – Authentication & Login
-
----
-
-# Technology Stack
-
-## Frontend
-
-- React 19
-- Vite
-- Tailwind CSS v4
-- React Router DOM
-- Axios
-- React Hook Form
-- Zod
-- React Query
-- React Hot Toast
-
-## UI
-
-- Lucide Icons
-- Class Variance Authority (CVA)
-- Radix UI Slot
-- clsx
-- tailwind-merge
+- Secure authentication
+- Role-based access control
+- Mobile number login
+- Responsive UI component library
+- Protected routing
+- Laravel REST API
+- React Frontend
 
 ---
 
-# Design Language
+## Technology Stack
 
-## Brand Colors
-
-Primary
-
-- Emerald Green (#50C878)
-
-Secondary
-
-- Dark Forest Green (#2E7D32)
-
-Background
-
-- #F5F7F9
-
-Surface
-
-- White
-
-Typography
-
-- Plus Jakarta Sans
-
-Design Philosophy
-
-- Premium institutional lending software
-- Minimal visual noise
-- Tonal layering instead of visible borders
-- Mobile-first
-- Responsive
-- Modern sans-serif typography
-
----
-
-# Folder Structure
-
-```text
-src/
-
-components/
-    ui/
-        Badge/
-        Button/
-        Card/
-        Spinner/
-
-pages/
-    auth/
-    admin/
-    agent/
-    client/
-    dev/
-
-routes/
-
-services/
-
-hooks/
-
-context/
-
-utils/
-```
-
----
-
-# Completed Sprints
-
-## Sprint 1
-
-### Backend
-
-- Laravel backend completed
-- Authentication endpoints
-- REST API
-- Role management
-- Loan management endpoints
-
----
-
-## Sprint 2.1
-
-### Frontend Foundation
-
-Completed
+### Frontend
 
 - React
 - Vite
-- Routing
-- Tailwind CSS v4
-- Theme configuration
-- Utility helpers
-- Alias configuration
+- React Router
+- React Query
+- Axios
+- Tailwind CSS
+- React Hot Toast
+
+### Backend
+
+- Laravel 12
+- Sanctum Authentication
+- MySQL
 
 ---
 
-## Sprint 2.2
+## Authentication
 
-### UI Foundation
+Users authenticate using:
 
-Completed
+- Mobile Number
+- Password
 
-Reusable Components
+Supported roles:
 
-- Button
-- Card
-- Badge
-- Spinner
+- Administrator
+- Agent
+- Client
 
-Features
+Authentication is handled through dedicated endpoints:
 
-- CVA button variants
-- Loading states
-- Responsive layout
-- Shared component exports
-- Component preview page
-- Modern reusable architecture
+POST /api/admin/login
 
-Testing
+POST /api/agent/login
 
-- Components compile successfully
-- No runtime errors
-- Preview page operational
+POST /api/client/login
 
 ---
 
-# Current Progress
+## Current Status
 
-| Module | Status |
-|----------|--------|
-| Backend API | ✅ Complete |
-| React Setup | ✅ Complete |
-| Routing | ✅ Complete |
-| Theme | ✅ Complete |
-| UI Foundation | ✅ Complete |
-| Authentication | ⏳ Next |
-| Admin Dashboard | Planned |
-| Agent Dashboard | Planned |
-| Client Dashboard | Planned |
+Sprint 2 Complete
 
----
+Next Sprint:
 
-# Upcoming Sprint
-
-## Sprint 2.3
-
-Authentication
-
-Deliverables
-
-- Premium Login Screen
-- Auth Context
-- API Integration
-- Token Storage
-- Role Redirect
-- Protected Routes
-- Logout
-- Session Persistence
-
-Completed
-
-- Centralized browser storage helper
-- Token management functions
-- User session management
-- Session clearing utilities
-- Authentication status helper
-- Axios integration with storage helper
-
----
-
-# Development Workflow
-
-Each sprint follows the same lifecycle.
-
-1. Build
-2. Test
-3. Review
-4. Documentation
-5. Git Commit
-
----
-
-# Environment Variables
-
-Create a `.env` file.
-
-```env
-VITE_API_URL=http://127.0.0.1:8000/api
-```
-
----
-
-# Git Workflow
-
-Feature branches are recommended.
-
-```bash
-git checkout -b feature/<feature-name>
-```
-
-After completion
-
-```bash
-git add .
-git commit -m "<commit message>"
-```
-
----
-
-# License
-
-Private Project
-
-Charmike Lending Management System.
+Dashboard development.
