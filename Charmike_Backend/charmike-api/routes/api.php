@@ -11,6 +11,7 @@ use App\Http\Controllers\Client\LoanController as ClientLoanController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ Route::middleware('auth:sanctum')->group(function () {
     */
     Route::middleware('role:admin')->prefix('admin')->group(function () {
 
+        //Dashboard
+        Route::get('dashboard', [DashboardController::class, 'index']);
+
         // Agent management
         Route::get('agents',                         [AdminAgentController::class, 'index']);
         Route::post('agents',                        [AdminAgentController::class, 'store']);
@@ -48,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('agents/{agent}/activate',      [AdminAgentController::class, 'activate']);
         Route::patch('agents/{agent}/deactivate',    [AdminAgentController::class, 'deactivate']);
         Route::delete('agents/{agent}',              [AdminAgentController::class, 'destroy']);
+      
 
         // Client management
         Route::get('clients',        [AdminClientController::class, 'index']);
@@ -55,6 +60,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // Loan management
         Route::get('loans',                          [AdminLoanController::class, 'index']);
+        
         Route::get('loans/pending',                  [AdminLoanController::class, 'pending']);
         Route::get('loans/{id}',                     [AdminLoanController::class, 'show']);
         Route::post('loans/{id}/approve',            [AdminLoanController::class, 'approve']);
