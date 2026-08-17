@@ -53,6 +53,18 @@ export interface Loan {
   due_date: string | null;
   client: ClientSummary;
   agent: AgentSummary;
+  payments?: Payment[];
+  created_at: string;
+}
+
+export interface Payment {
+  id: string;
+  amount: string;
+  payment_date: string;
+  reference: string;
+  notes: string | null;
+  recorded_by?: UserSummary;
+  loan?: Loan;
   created_at: string;
 }
 
@@ -63,6 +75,7 @@ export interface LoanApplication {
   status: string;
   rejection_reason: string | null;
   client: ClientSummary;
+  loan?: Loan | null;
   created_at: string;
   updated_at: string;
 }

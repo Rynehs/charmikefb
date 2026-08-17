@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -115,10 +116,21 @@ function LoginForm() {
 
             {error && <p className="text-sm text-destructive">{error}</p>}
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex-col gap-3">
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Signing in..." : "Sign in"}
             </Button>
+            {role === "client" && (
+              <p className="text-sm text-muted-foreground">
+                New client?{" "}
+                <Link
+                  href="/register"
+                  className="text-primary underline-offset-4 hover:underline"
+                >
+                  Create an account
+                </Link>
+              </p>
+            )}
           </CardFooter>
         </form>
       </Card>
