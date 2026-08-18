@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Pagination } from "@/components/pagination";
 import {
   Table,
   TableBody,
@@ -81,7 +82,8 @@ function RejectAction({ applicationId }: { applicationId: string }) {
 }
 
 export default function AdminPendingLoansPage() {
-  const { data, isLoading, isError } = usePendingApplications();
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isError } = usePendingApplications(page);
 
   if (isLoading) {
     return (
@@ -100,46 +102,49 @@ export default function AdminPendingLoansPage() {
   }
 
   return (
-    <div className="rounded-lg border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Client</TableHead>
-            <TableHead>Agent</TableHead>
-            <TableHead>Amount requested</TableHead>
-            <TableHead>Duration</TableHead>
-            <TableHead>Applied</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.applications.map((app) => (
-            <TableRow key={app.id}>
-              <TableCell>{app.client.user.full_name}</TableCell>
-              <TableCell>{app.client.agent?.user.full_name ?? "—"}</TableCell>
-              <TableCell>{formatCurrency(app.amount_requested)}</TableCell>
-              <TableCell>{app.duration_days} days</TableCell>
-              <TableCell>{formatDate(app.created_at)}</TableCell>
-              <TableCell className="text-right">
-                <div className="flex justify-end gap-2">
-                  <ApproveAction applicationId={app.id} />
-                  <RejectAction applicationId={app.id} />
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-          {data.applications.length === 0 && (
+    <div className="space-y-4">
+      <div className="rounded-lg border">
+        <Table>
+          <TableHeader>
             <TableRow>
-              <TableCell
-                colSpan={6}
-                className="text-center text-muted-foreground"
-              >
-                No pending applications.
-              </TableCell>
+              <TableHead>Client</TableHead>
+              <TableHead>Agent</TableHead>
+              <TableHead>Amount requested</TableHead>
+              <TableHead>Duration</TableHead>
+              <TableHead>Applied</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
-          )}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {data.applications.map((app) => (
+              <TableRow key={app.id}>
+                <TableCell>{app.client.user.full_name}</TableCell>
+                <TableCell>{app.client.agent?.user.full_name ?? "—"}</TableCell>
+                <TableCell>{formatCurrency(app.amount_requested)}</TableCell>
+                <TableCell>{app.duration_days} days</TableCell>
+                <TableCell>{formatDate(app.created_at)}</TableCell>
+                <TableCell className="text-right">
+                  <div className="flex justify-end gap-2">
+                    <ApproveAction applicationId={app.id} />
+                    <RejectAction applicationId={app.id} />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+            {data.applications.length === 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={6}
+                  className="text-center text-muted-foreground"
+                >
+                  No pending applications.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      <Pagination meta={data.meta} onPageChange={setPage} />
     </div>
   );
 }

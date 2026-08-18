@@ -27,6 +27,7 @@ export interface ClientSummary {
   credit_limit: string;
   user: UserSummary;
   agent?: AgentSummary;
+  loans?: Loan[];
   created_at: string;
 }
 
@@ -54,6 +55,8 @@ export interface Loan {
   client: ClientSummary;
   agent: AgentSummary;
   payments?: Payment[];
+  commission?: Commission;
+  loan_application?: LoanApplication;
   created_at: string;
 }
 
@@ -121,6 +124,13 @@ export interface Commission {
   paid_at: string | null;
   loan: Loan;
   created_at: string;
+}
+
+export interface Settings {
+  commission_rate: string;
+  default_interest_rate: string;
+  max_active_loans: string;
+  [key: string]: string;
 }
 
 export interface ApiEnvelope<T> {

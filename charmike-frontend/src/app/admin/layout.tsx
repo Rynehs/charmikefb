@@ -12,6 +12,9 @@ const NAV = [
   { href: "/admin/loans", label: "Loans" },
   { href: "/admin/loans/pending", label: "Pending Approvals" },
   { href: "/admin/agents", label: "Agents" },
+  { href: "/admin/clients", label: "Clients" },
+  { href: "/admin/commissions", label: "Commissions" },
+  { href: "/admin/settings", label: "Settings" },
 ];
 
 export default function AdminLayout({
@@ -46,7 +49,7 @@ export default function AdminLayout({
             Log out
           </Button>
         </div>
-        <nav className="mx-auto flex max-w-6xl gap-1 px-6 pb-2">
+        <nav className="mx-auto flex max-w-6xl flex-wrap gap-1 px-6 pb-2">
           {NAV.map((item) => {
             const active =
               item.href === "/admin"
