@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\LoanController as ClientLoanController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RepaymentPlanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Admin\DashboardController;
 
@@ -23,6 +24,8 @@ Route::post('/admin/login',    [AuthController::class, 'adminLogin']);
 Route::post('/agent/login',    [AuthController::class, 'agentLogin']);
 Route::post('/client/register', [AuthController::class, 'clientRegister']);
 Route::post('/client/login',   [AuthController::class, 'clientLogin']);
+
+Route::get('repayment-plans', [RepaymentPlanController::class, 'index']);
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +43,8 @@ Route::middleware('auth:sanctum')->group(function () {
     |----------------------------------------------------------------------
     */
     Route::middleware('role:admin')->prefix('admin')->group(function () {
+
+        Route::patch('commissions/{id}/pay', [AdminReportController::class, 'markCommissionPaid']);
 
         //Dashboard
         Route::get('dashboard', [DashboardController::class, 'index']);

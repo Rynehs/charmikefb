@@ -41,6 +41,29 @@ class ReportController extends ApiController
             ],
         ]);
     }
+public function markCommissionPaid(string $id): JsonResponse
+{
+    $commission = Commission::find($id);
+
+    if (! $commission) {
+        return $this->notFound('Commission not found');
+    }
+
+    if ($commission->status === 'paid') {
+        return $this->error('Commission is already marked as paid', 422);
+    }
+
+    $commission->update([
+        'status'  => 'paid',
+        'paid_at' => now(),
+    ]);
+
+    return $this->success(
+        new CommissionResource($commission->load('agent.user', 'loan.client.user')),
+        'Commission marked as paid'
+    );
+}
+
 
     // GET /api/admin/settings
     public function settings(): JsonResponse
