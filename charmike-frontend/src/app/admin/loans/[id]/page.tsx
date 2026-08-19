@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useAdminLoanDetail } from "@/hooks/use-admin";
+import { DetailCardSkeleton, TableSkeleton } from "@/components/skeletons";
 import { useRecordPayment } from "@/hooks/use-payments";
 import { formatCurrency, formatDate } from "@/lib/format";
 
@@ -108,7 +109,12 @@ export default function AdminLoanDetailPage() {
   const { data: loan, isLoading, isError } = useAdminLoanDetail(params.id);
 
   if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading loan...</p>;
+    return (
+      <div className="space-y-6">
+        <DetailCardSkeleton fields={8} />
+        <TableSkeleton rows={3} cols={5} />
+      </div>
+    );
   }
 
   if (isError || !loan) {

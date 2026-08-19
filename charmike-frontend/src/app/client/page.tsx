@@ -11,6 +11,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { useClientActiveLoans, useClientProfile } from "@/hooks/use-client";
+import { DetailCardSkeleton, StatCardsSkeleton } from "@/components/skeletons";
 import { formatCurrency, formatDate } from "@/lib/format";
 
 const STATUS_VARIANT: Record<string, NonNullable<BadgeProps["variant"]>> = {
@@ -30,38 +31,42 @@ export default function ClientDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Your profile</CardTitle>
-          <CardDescription>
-            {profileLoading ? "Loading..." : profile?.user.phone}
-          </CardDescription>
-        </CardHeader>
-        {profile && (
-          <CardContent className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
-            <div>
-              <p className="text-muted-foreground">National ID</p>
-              <p className="font-medium">{profile.national_id}</p>
-            </div>
-            <div>
-              <p className="text-muted-foreground">Credit limit</p>
-              <p className="font-medium">
-                {formatCurrency(profile.credit_limit)}
-              </p>
-            </div>
-            <div>
-              <p className="text-muted-foreground">Agent</p>
-              <p className="font-medium">
-                {profile.agent?.user.full_name ?? "—"}
-              </p>
-            </div>
-            <div>
-              <p className="text-muted-foreground">Agent code</p>
-              <p className="font-medium">{profile.agent?.agent_code ?? "—"}</p>
-            </div>
-          </CardContent>
-        )}
-      </Card>
+      {profileLoading && <DetailCardSkeleton fields={4} />}
+
+      {!profileLoading && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Your profile</CardTitle>
+            <CardDescription>{profile?.user.phone}</CardDescription>
+          </CardHeader>
+          {profile && (
+            <CardContent className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
+              <div>
+                <p className="text-muted-foreground">National ID</p>
+                <p className="font-medium">{profile.national_id}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Credit limit</p>
+                <p className="font-medium">
+                  {formatCurrency(profile.credit_limit)}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Agent</p>
+                <p className="font-medium">
+                  {profile.agent?.user.full_name ?? "—"}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Agent code</p>
+                <p className="font-medium">
+                  {profile.agent?.agent_code ?? "—"}
+                </p>
+              </div>
+            </CardContent>
+          )}
+        </Card>
+      )}
 
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Active loans</h2>
@@ -70,9 +75,7 @@ export default function ClientDashboardPage() {
         </Button>
       </div>
 
-      {loansLoading && (
-        <p className="text-sm text-muted-foreground">Loading loans...</p>
-      )}
+      {loansLoading && <StatCardsSkeleton count={2} />}
       {loansError && (
         <p className="text-sm text-destructive">Couldn&apos;t load loans.</p>
       )}

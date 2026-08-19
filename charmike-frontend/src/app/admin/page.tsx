@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { StatCardsSkeleton } from "@/components/skeletons";
 import { useDashboardStats } from "@/hooks/use-admin";
 import { formatCurrency } from "@/lib/format";
 
@@ -8,9 +9,7 @@ export default function AdminDashboardPage() {
   const { data, isLoading, isError } = useDashboardStats();
 
   if (isLoading) {
-    return (
-      <p className="text-sm text-muted-foreground">Loading dashboard...</p>
-    );
+    return <StatCardsSkeleton count={10} />;
   }
 
   if (isError || !data) {

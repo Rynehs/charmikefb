@@ -122,6 +122,7 @@ export interface Commission {
   year: number;
   status: "pending" | "paid" | string;
   paid_at: string | null;
+  agent?: AgentSummary;
   loan: Loan;
   created_at: string;
 }

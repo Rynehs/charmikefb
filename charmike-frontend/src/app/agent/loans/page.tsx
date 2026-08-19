@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge, type BadgeProps } from "@/components/ui/badge";
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -23,7 +24,7 @@ export default function AgentLoansPage() {
   const { data, isLoading, isError } = useAgentLoans();
 
   if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading loans...</p>;
+    return <TableSkeleton rows={5} cols={5} />;
   }
 
   if (isError || !data) {

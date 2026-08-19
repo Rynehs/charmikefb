@@ -1,5 +1,6 @@
 "use client";
 
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -15,9 +16,7 @@ export default function ClientPaymentsPage() {
   const { data, isLoading, isError } = useClientPayments();
 
   if (isLoading) {
-    return (
-      <p className="text-sm text-muted-foreground">Loading payments...</p>
-    );
+    return <TableSkeleton rows={4} cols={4} />;
   }
 
   if (isError || !data) {

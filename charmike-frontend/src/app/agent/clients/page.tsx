@@ -1,5 +1,6 @@
 "use client";
 
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -15,7 +16,7 @@ export default function AgentClientsPage() {
   const { data, isLoading, isError } = useAgentClients();
 
   if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading clients...</p>;
+    return <TableSkeleton rows={5} cols={5} />;
   }
 
   if (isError || !data) {

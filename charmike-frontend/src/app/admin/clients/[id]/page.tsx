@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Badge, type BadgeProps } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { DetailCardSkeleton, TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -27,7 +28,12 @@ export default function AdminClientDetailPage() {
   const { data: client, isLoading, isError } = useClientDetail(params.id);
 
   if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading client...</p>;
+    return (
+      <div className="space-y-6">
+        <DetailCardSkeleton fields={4} />
+        <TableSkeleton rows={3} cols={5} />
+      </div>
+    );
   }
 
   if (isError || !client) {

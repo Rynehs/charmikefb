@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { DetailCardSkeleton } from "@/components/skeletons";
 import { useSettings, useUpdateSettings } from "@/hooks/use-admin";
 
 const FIELDS: { key: string; label: string; suffix?: string }[] = [
@@ -26,7 +27,7 @@ export default function AdminSettingsPage() {
   }, [data]);
 
   if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading settings...</p>;
+    return <DetailCardSkeleton fields={3} />;
   }
 
   if (isError || !data) {

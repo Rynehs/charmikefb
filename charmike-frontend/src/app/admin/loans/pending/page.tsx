@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Pagination } from "@/components/pagination";
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -86,11 +87,7 @@ export default function AdminPendingLoansPage() {
   const { data, isLoading, isError } = usePendingApplications(page);
 
   if (isLoading) {
-    return (
-      <p className="text-sm text-muted-foreground">
-        Loading applications...
-      </p>
-    );
+    return <TableSkeleton rows={5} cols={6} />;
   }
 
   if (isError || !data) {

@@ -17,6 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useClientLoanDetail } from "@/hooks/use-client";
+import { DetailCardSkeleton, TableSkeleton } from "@/components/skeletons";
 import { formatCurrency, formatDate } from "@/lib/format";
 
 const STATUS_VARIANT: Record<string, NonNullable<BadgeProps["variant"]>> = {
@@ -31,7 +32,12 @@ export default function ClientLoanDetailPage() {
   const { data: loan, isLoading, isError } = useClientLoanDetail(params.id);
 
   if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading loan...</p>;
+    return (
+      <div className="space-y-6">
+        <DetailCardSkeleton fields={8} />
+        <TableSkeleton rows={3} cols={4} />
+      </div>
+    );
   }
 
   if (isError || !loan) {

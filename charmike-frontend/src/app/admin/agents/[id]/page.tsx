@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { DetailCardSkeleton } from "@/components/skeletons";
 import {
   useAgentDetail,
   useDeleteAgent,
@@ -45,7 +46,7 @@ export default function AgentDetailPage() {
   }, [agent]);
 
   if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading agent...</p>;
+    return <DetailCardSkeleton fields={4} />;
   }
 
   if (isError || !agent) {

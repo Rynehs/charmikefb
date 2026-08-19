@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Badge, type BadgeProps } from "@/components/ui/badge";
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -26,11 +27,7 @@ export default function ClientLoansPage() {
   const { data, isLoading, isError } = useClientApplications();
 
   if (isLoading) {
-    return (
-      <p className="text-sm text-muted-foreground">
-        Loading your applications...
-      </p>
-    );
+    return <TableSkeleton rows={4} cols={5} />;
   }
 
   if (isError || !data) {

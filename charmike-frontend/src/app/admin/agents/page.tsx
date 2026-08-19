@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Pagination } from "@/components/pagination";
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -21,7 +22,7 @@ export default function AdminAgentsPage() {
   const { data, isLoading, isError } = useAgents(page);
 
   if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading agents...</p>;
+    return <TableSkeleton rows={5} cols={7} />;
   }
 
   if (isError || !data) {

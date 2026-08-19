@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Pagination } from "@/components/pagination";
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -32,9 +33,7 @@ export default function AdminClientsPage() {
         className="max-w-sm"
       />
 
-      {isLoading && (
-        <p className="text-sm text-muted-foreground">Loading clients...</p>
-      )}
+      {isLoading && <TableSkeleton rows={5} cols={6} />}
       {isError && (
         <p className="text-sm text-destructive">Couldn&apos;t load clients.</p>
       )}

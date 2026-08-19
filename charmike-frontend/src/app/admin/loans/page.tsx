@@ -6,6 +6,7 @@ import { Badge, type BadgeProps } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Pagination } from "@/components/pagination";
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -40,34 +41,39 @@ function DisburseAction({ loanId }: { loanId: string }) {
   if (!open) {
     return (
       <Button size="sm" variant="outline" onClick={() => setOpen(true)}>
-        Disburse
+        Disburse (record M-Pesa code)
       </Button>
     );
   }
 
   return (
-    <div className="flex items-center justify-end gap-2">
-      <Input
-        placeholder="M-Pesa reference"
-        value={reference}
-        onChange={(e) => setReference(e.target.value)}
-        className="h-8 w-36"
-      />
-      <Button
-        size="sm"
-        disabled={!reference || disburse.isPending}
-        onClick={() =>
-          disburse.mutate(
-            { id: loanId, reference },
-            { onSuccess: () => setOpen(false) }
-          )
-        }
-      >
-        {disburse.isPending ? "..." : "Confirm"}
-      </Button>
-      <Button size="sm" variant="ghost" onClick={() => setOpen(false)}>
-        Cancel
-      </Button>
+    <div className="space-y-1">
+      <p className="text-xs text-muted-foreground">
+        Send funds to the client manually, then record the code:
+      </p>
+      <div className="flex items-center justify-end gap-2">
+        <Input
+          placeholder="M-Pesa transaction code"
+          value={reference}
+          onChange={(e) => setReference(e.target.value)}
+          className="h-8 w-40"
+        />
+        <Button
+          size="sm"
+          disabled={!reference || disburse.isPending}
+          onClick={() =>
+            disburse.mutate(
+              { id: loanId, reference },
+              { onSuccess: () => setOpen(false) }
+            )
+          }
+        >
+          {disburse.isPending ? "..." : "Confirm"}
+        </Button>
+        <Button size="sm" variant="ghost" onClick={() => setOpen(false)}>
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 }
@@ -97,9 +103,7 @@ export default function AdminLoansPage() {
         </select>
       </div>
 
-      {isLoading && (
-        <p className="text-sm text-muted-foreground">Loading loans...</p>
-      )}
+      {isLoading && <TableSkeleton rows={5} cols={7} />}
       {isError && (
         <p className="text-sm text-destructive">Couldn&apos;t load loans.</p>
       )}

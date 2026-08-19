@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Pagination } from "@/components/pagination";
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -35,9 +36,7 @@ export default function AdminCommissionsPage() {
   const { data, isLoading, isError } = useAdminCommissions(page);
 
   if (isLoading) {
-    return (
-      <p className="text-sm text-muted-foreground">Loading commissions...</p>
-    );
+    return <TableSkeleton rows={5} cols={7} />;
   }
 
   if (isError || !data) {
@@ -67,7 +66,7 @@ export default function AdminCommissionsPage() {
             {data.commissions.map((c) => (
               <TableRow key={c.id}>
                 <TableCell className="font-medium">
-                  {c.loan.agent.user.full_name}
+                  {c.agent?.user.full_name ?? "—"}
                 </TableCell>
                 <TableCell>{c.loan.client.user.full_name}</TableCell>
                 <TableCell>{formatCurrency(c.loan.principal)}</TableCell>

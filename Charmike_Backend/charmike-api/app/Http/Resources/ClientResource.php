@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\UserResource;
 
 class ClientResource extends JsonResource
 {
@@ -15,6 +16,7 @@ class ClientResource extends JsonResource
             'credit_limit' => $this->credit_limit,
             'user'         => new UserResource($this->whenLoaded('user')),
             'agent'        => new AgentResource($this->whenLoaded('agent')),
+            'loans'        => LoanResource::collection($this->whenLoaded('loans')),
             'created_at'   => $this->created_at?->toDateTimeString(),
         ];
     }

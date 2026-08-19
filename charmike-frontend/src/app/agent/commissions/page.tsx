@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { TableSkeleton } from "@/components/skeletons";
 import {
   Table,
   TableBody,
@@ -32,9 +33,7 @@ export default function AgentCommissionsPage() {
   const { data, isLoading, isError } = useAgentCommissions();
 
   if (isLoading) {
-    return (
-      <p className="text-sm text-muted-foreground">Loading commissions...</p>
-    );
+    return <TableSkeleton rows={5} cols={6} />;
   }
 
   if (isError || !data) {

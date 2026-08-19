@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { StatCardsSkeleton } from "@/components/skeletons";
 import { useAgentDashboard } from "@/hooks/use-agent";
 import { formatCurrency } from "@/lib/format";
 
@@ -8,9 +9,7 @@ export default function AgentDashboardPage() {
   const { data, isLoading, isError } = useAgentDashboard();
 
   if (isLoading) {
-    return (
-      <p className="text-sm text-muted-foreground">Loading dashboard...</p>
-    );
+    return <StatCardsSkeleton count={8} />;
   }
 
   if (isError || !data) {
