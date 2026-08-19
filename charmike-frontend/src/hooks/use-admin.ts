@@ -286,6 +286,24 @@ export function useAdminCommissions(page: number = 1) {
   });
 }
 
+export function useMarkCommissionPaid() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const res = await api.patch<ApiEnvelope<Commission>>(
+        `/admin/commissions/${id}/pay`
+      );
+      return res.data.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin", "commissions"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "dashboard"] });
+    },
+  });
+}
+
+
+
 export function useSettings() {
   return useQuery({
     queryKey: ["admin", "settings"],

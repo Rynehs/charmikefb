@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Pagination } from "@/components/pagination";
 import { TableSkeleton } from "@/components/skeletons";
 import {
@@ -12,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useAdminCommissions } from "@/hooks/use-admin";
+import { useAdminCommissions, useMarkCommissionPaid } from "@/hooks/use-admin";
 import { formatCurrency } from "@/lib/format";
 
 const MONTHS = [
@@ -30,6 +31,21 @@ const MONTHS = [
   "Nov",
   "Dec",
 ];
+
+function MarkPaidAction({ commissionId }: { commissionId: string }) {
+  const markPaid = useMarkCommissionPaid();
+
+  return (
+    <Button
+      size="sm"
+      variant="outline"
+      disabled={markPaid.isPending}
+      onClick={() => markPaid.mutate(commissionId)}
+    >
+      {markPaid.isPending ? "..." : "Mark as Paid"}
+    </Button>
+  );
+}
 
 export default function AdminCommissionsPage() {
   const [page, setPage] = useState(1);
@@ -60,6 +76,7 @@ export default function AdminCommissionsPage() {
               <TableHead>Amount</TableHead>
               <TableHead>Period</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -80,12 +97,17 @@ export default function AdminCommissionsPage() {
                     {c.status}
                   </Badge>
                 </TableCell>
+                <TableCell className="text-right">
+                  {c.status !== "paid" && (
+                    <MarkPaidAction commissionId={c.id} />
+                  )}
+                </TableCell>
               </TableRow>
             ))}
             {data.commissions.length === 0 && (
               <TableRow>
                 <TableCell
-                  colSpan={7}
+                  colSpan={8}
                   className="text-center text-muted-foreground"
                 >
                   No commissions yet.
